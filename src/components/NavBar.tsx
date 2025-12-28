@@ -6,7 +6,12 @@ import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { useUser, useClerk } from "@clerk/nextjs";
 
-export default function NavBar() {
+interface NavBarProps {
+    visitedParksCount: number;
+    totalParksCount: number;
+}
+
+export default function NavBar({ visitedParksCount, totalParksCount }: NavBarProps) {
     const [accountDropdownOpen, setAccountDropdownOpen] = useState(false);
     const { user, isLoaded } = useUser();
     const { signOut } = useClerk();
@@ -80,7 +85,7 @@ export default function NavBar() {
                             >
                                 <div className="text-right hidden sm:block">
                                     <div className="text-sm font-medium text-gray-900">{fullName}</div>
-                                    <div className="text-xs text-gray-500">12/63 Parks</div>
+                                    <div className="text-xs text-gray-500">{visitedParksCount}/{totalParksCount} Parks</div>
                                 </div>
                                 <img 
                                     src={profileImageUrl} 

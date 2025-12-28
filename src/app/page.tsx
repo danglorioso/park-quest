@@ -33,25 +33,47 @@ interface ParkForMap {
 export default function Home() {
   const { isSignedIn, isLoaded } = useUser();
   const [parks, setParks] = useState<ParkForMap[]>([]);
+  const [totalParksCount, setTotalParksCount] = useState(0);
+  const [visitedParksCount, setVisitedParksCount] = useState(0);
   const [isLoadingParks, setIsLoadingParks] = useState(true);
 
   useEffect(() => {
     if (isSignedIn) {
-      fetchParks();
+      fetchParksAndVisits();
     }
   }, [isSignedIn]);
 
-  const fetchParks = async () => {
+  const fetchParksAndVisits = async () => {
     try {
       setIsLoadingParks(true);
-      const response = await fetch('/api/parks');
-      if (!response.ok) {
+      
+      // Fetch parks and visits in parallel
+      const [parksResponse, visitsResponse] = await Promise.all([
+        fetch('/api/parks'),
+        fetch('/api/visits')
+      ]);
+
+      if (!parksResponse.ok) {
         throw new Error('Failed to fetch parks');
       }
-      const data: ParkFromDB[] = await response.json();
+
+      const parksData: ParkFromDB[] = await parksResponse.json();
       
-      // Transform database parks to map format
-      const transformedParks: ParkForMap[] = data
+      // Set total parks count (all parks, not just those with coordinates)
+      setTotalParksCount(parksData.length);
+      
+      // Get visited park codes and count
+      let visitedParkCodes: Set<string> = new Set();
+      if (visitsResponse.ok) {
+        const visitsData: Array<{ park_code: string; is_bucket_list: boolean }> = await visitsResponse.json();
+        visitedParkCodes = new Set(visitsData.map(visit => visit.park_code));
+        setVisitedParksCount(visitedParkCodes.size);
+      } else {
+        setVisitedParksCount(0);
+      }
+      
+      // Transform database parks to map format (only parks with coordinates)
+      const transformedParks: ParkForMap[] = parksData
         .filter(park => park.latitude && park.longitude)
         .map(park => ({
           park_code: park.park_code,
@@ -60,7 +82,7 @@ export default function Home() {
             parseFloat(park.latitude!),
             parseFloat(park.longitude!)
           ] as [number, number],
-          status: 'notVisited' as const, // Default status, can be updated later based on visits
+          status: visitedParkCodes.has(park.park_code) ? 'visited' as const : 'notVisited' as const,
           description: park.description || undefined,
         }));
       
@@ -94,6 +116,9 @@ export default function Home() {
             : park
         )
       );
+      
+      // Update visited count
+      setVisitedParksCount(prev => prev + 1);
     } catch (error) {
       console.error('Error marking park as visited:', error);
     }
@@ -112,14 +137,25 @@ export default function Home() {
     return (
       <div className="flex flex-col h-screen">
         {/* Navigation Bar */}
-        <Nav />
+        <Nav 
+          visitedParksCount={visitedParksCount}
+          totalParksCount={totalParksCount}
+        />
 
         {/* Body */}
         <div className="flex flex-1 flex-row min-h-0 overflow-hidden">
           {/* Left Sidebar */}
           <div className="w-80 bg-gray-50 border-r border-gray-200 overflow-y-auto p-6">
-            <ProgressCard />
-            <QuickStats />
+            <ProgressCard 
+              visitedCount={visitedParksCount}
+              totalCount={totalParksCount}
+            />
+            <QuickStats 
+              statesCount={0}
+              badgesCount={0}
+              photosCount={0}
+              postsCount={0}
+            />
             <RecentBadges />
           </div>
 
