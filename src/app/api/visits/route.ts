@@ -90,6 +90,21 @@ export async function POST(request: Request) {
           visit: updated[0]
         });
       }
+      if (!isBucketList && existing.is_bucket_list) {
+        // Update from bucket list to visited
+        const updated = await db
+          .update(visits)
+          .set({ 
+            is_bucket_list: false,
+            visited_date: new Date()
+          })
+          .where(eq(visits.id, existing.id))
+          .returning();
+        return NextResponse.json({ 
+          message: 'Park marked as visited',
+          visit: updated[0]
+        });
+      }
       // Visit already exists, return success
       return NextResponse.json({ 
         message: isBucketList ? 'Park already in bucket list' : 'Park already marked as visited',
