@@ -5,12 +5,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import { Menu, X, CheckCircle2, Mail, LogOut } from "lucide-react";
-import { SignInButton, SignUpButton, useUser, useClerk } from "@clerk/nextjs";
+import { useUser, useClerk } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import SignInModal from "./SignInModal";
+import SignUpModal from "./SignUpModal";
 
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [accountDropdownOpen, setAccountDropdownOpen] = useState(false);
+    const [signInOpen, setSignInOpen] = useState(false);
+    const [signUpOpen, setSignUpOpen] = useState(false);
     const { isSignedIn, user, isLoaded } = useUser();
     const { signOut } = useClerk();
     const dropdownRef = useRef<HTMLDivElement>(null);
@@ -160,16 +164,19 @@ export default function Header() {
                             </>
                         ) : (
                             <>
-                                <SignInButton mode="modal">
-                                    <Button variant="outline" className="text-green-600 border-green-400 hover:text-green-700 hover:bg-gray-100">
-                                        Sign In
-                                    </Button>
-                                </SignInButton>
-                                <SignUpButton mode="modal">
-                                    <Button className="bg-green-600 hover:bg-green-700 text-white">
-                                        Get Started
-                                    </Button>
-                                </SignUpButton>
+                                <Button 
+                                    variant="outline" 
+                                    className="text-green-600 border-green-400 hover:text-green-700 hover:bg-gray-100"
+                                    onClick={() => setSignInOpen(true)}
+                                >
+                                    Sign In
+                                </Button>
+                                <Button 
+                                    className="bg-green-600 hover:bg-green-700 text-white"
+                                    onClick={() => setSignUpOpen(true)}
+                                >
+                                    Get Started
+                                </Button>
                             </>
                         )}
                     </div>
@@ -292,22 +299,41 @@ export default function Header() {
                                 </>
                             ) : (
                                 <>
-                                    <SignInButton mode="modal">
-                                        <Button variant="outline" className="w-full text-green-600 border-green-400 hover:text-green-700 hover:bg-gray-100">
-                                            Sign In
-                                        </Button>
-                                    </SignInButton>
-                                    <SignUpButton mode="modal">
-                                        <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
-                                            Get Started
-                                        </Button>
-                                    </SignUpButton>
+                                    <Button 
+                                        variant="outline" 
+                                        className="w-full text-green-600 border-green-400 hover:text-green-700 hover:bg-gray-100"
+                                        onClick={() => {
+                                            setSignInOpen(true);
+                                            setMobileMenuOpen(false);
+                                        }}
+                                    >
+                                        Sign In
+                                    </Button>
+                                    <Button 
+                                        className="w-full bg-green-600 hover:bg-green-700 text-white"
+                                        onClick={() => {
+                                            setSignUpOpen(true);
+                                            setMobileMenuOpen(false);
+                                        }}
+                                    >
+                                        Get Started
+                                    </Button>
                                 </>
                             )}
                         </div>
                     </div>
                 )}
             </div>
+            <SignInModal 
+                open={signInOpen} 
+                onOpenChange={setSignInOpen}
+                switchToSignUp={() => setSignUpOpen(true)}
+            />
+            <SignUpModal 
+                open={signUpOpen} 
+                onOpenChange={setSignUpOpen}
+                switchToSignIn={() => setSignInOpen(true)}
+            />
         </nav>
     );
 }
