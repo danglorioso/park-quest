@@ -1,5 +1,6 @@
 import { Bell } from "lucide-react";
 import Logo from "./Logo";
+import Link from "next/link";
 
 export default function NavBar() {
     return (
@@ -15,10 +16,10 @@ export default function NavBar() {
 
                         {/* Navigation Links */}
                         <div className="hidden md:flex space-x-1">
-                            <a href="/map" className="px-4 py-2 text-green-600 bg-green-50 rounded-lg font-medium">Map</a>
-                            <a href="/visits" className="px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg font-medium">My Visits</a>
-                            <a href="/badges" className="px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg font-medium">Badges</a>
-                            <a href="/community" className="px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg font-medium">Community</a>
+                            <Link href="/map" className="px-4 py-2 text-green-600 bg-green-50 rounded-lg font-medium">Map</Link>
+                            <Link href="/visits" className="px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg font-medium">My Visits</Link>
+                            <Link href="/badges" className="px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg font-medium">Badges</Link>
+                            <Link href="/community" className="px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg font-medium">Community</Link>
                         </div>
                     </div>
                     {/* Right Side */}
