@@ -229,7 +229,7 @@ export default function SignUpModal({ open, onOpenChange, switchToSignIn }: Sign
                 <Input
                   id="firstName"
                   type="text"
-                  placeholder="John"
+                  placeholder=""
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   disabled={loading || !isLoaded}
@@ -241,7 +241,7 @@ export default function SignUpModal({ open, onOpenChange, switchToSignIn }: Sign
                 <Input
                   id="lastName"
                   type="text"
-                  placeholder="Doe"
+                  placeholder=""
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   disabled={loading || !isLoaded}
@@ -254,7 +254,7 @@ export default function SignUpModal({ open, onOpenChange, switchToSignIn }: Sign
               <Input
                 id="email"
                 type="email"
-                placeholder="you@example.com"
+                placeholder="Enter your email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required

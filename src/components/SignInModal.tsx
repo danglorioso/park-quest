@@ -140,7 +140,7 @@ export default function SignInModal({ open, onOpenChange, switchToSignUp }: Sign
               <Input
                 id="email"
                 type="email"
-                placeholder="you@example.com"
+                placeholder="Enter your email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
