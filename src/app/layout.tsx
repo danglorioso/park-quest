@@ -4,6 +4,7 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { ClerkProvider } from "@clerk/nextjs";
 import Footer from "../components/Footer";
+import 'leaflet/dist/leaflet.css';
 
 const inter = Inter({
   variable: "--font-inter",
