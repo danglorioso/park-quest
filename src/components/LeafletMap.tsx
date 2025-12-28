@@ -5,8 +5,8 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-interface Park {
-  id: string;
+export interface Park {
+  park_code: string;
   name: string;
   position: [number, number];
   status: 'visited' | 'notVisited' | 'bucketList';
@@ -18,6 +18,7 @@ interface LeafletMapProps {
   zoom?: number;
   className?: string;
   parks?: Park[];
+  onMarkVisited?: (parkCode: string) => void;
 }
 
 const createCustomIcon = (color: string) => {
@@ -43,7 +44,8 @@ export default function LeafletMap({
   center = [42.47, -71.49], 
   zoom = 13,
   className = "h-96 w-full",
-  parks = []
+  parks = [],
+  onMarkVisited
 }: LeafletMapProps) {
   const [isClient, setIsClient] = useState(false);
   const [markerIcons, setMarkerIcons] = useState<{
@@ -89,15 +91,30 @@ export default function LeafletMap({
       />
       {parks.map((park) => (
         <Marker 
-          key={park.id}
+          key={park.park_code}
           position={park.position}
           icon={markerIcons[park.status]}
         >
           <Popup>
-            <div className="font-semibold">{park.name}</div>
-            {park.description && (
-              <div className="text-sm text-gray-600 mt-1">{park.description}</div>
-            )}
+            <div className="min-w-[200px]">
+              <div className="font-semibold">{park.name}</div>
+              {park.description && (
+                <div className="text-sm text-gray-600 mt-1 mb-3">{park.description}</div>
+              )}
+              {onMarkVisited && park.status !== 'visited' && (
+                <button
+                  onClick={() => onMarkVisited(park.park_code)}
+                  className="w-full mt-2 px-3 py-1.5 bg-green-600 text-white text-sm font-medium rounded-md hover:bg-green-700 transition-colors"
+                >
+                  Mark Visited
+                </button>
+              )}
+              {park.status === 'visited' && (
+                <div className="mt-2 text-sm text-green-600 font-medium">
+                  ✓ Visited
+                </div>
+              )}
+            </div>
           </Popup>
         </Marker>
       ))}

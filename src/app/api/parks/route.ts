@@ -7,7 +7,7 @@ export async function GET() {
   try {
     const allParks = await db
       .select({
-        id: parks.id,
+        park_code: parks.park_code,
         name: parks.name,
         latitude: parks.latitude,
         longitude: parks.longitude,

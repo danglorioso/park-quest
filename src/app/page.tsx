@@ -15,7 +15,7 @@ import Legend from "@/components/Legend";
 import Map from "@/components/Map";
 
 interface ParkFromDB {
-  id: number;
+  park_code: string;
   name: string;
   latitude: string | null;
   longitude: string | null;
@@ -23,7 +23,7 @@ interface ParkFromDB {
 }
 
 interface ParkForMap {
-  id: string;
+  park_code: string;
   name: string;
   position: [number, number];
   status: 'visited' | 'notVisited' | 'bucketList';
@@ -54,7 +54,7 @@ export default function Home() {
       const transformedParks: ParkForMap[] = data
         .filter(park => park.latitude && park.longitude)
         .map(park => ({
-          id: park.id.toString(),
+          park_code: park.park_code,
           name: park.name,
           position: [
             parseFloat(park.latitude!),
@@ -69,6 +69,33 @@ export default function Home() {
       console.error('Error fetching parks:', error);
     } finally {
       setIsLoadingParks(false);
+    }
+  };
+
+  const handleMarkVisited = async (parkCode: string) => {
+    try {
+      const response = await fetch('/api/visits', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ park_code: parkCode }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to mark park as visited');
+      }
+
+      // Update the park status in the local state
+      setParks(prevParks =>
+        prevParks.map(park =>
+          park.park_code === parkCode
+            ? { ...park, status: 'visited' as const }
+            : park
+        )
+      );
+    } catch (error) {
+      console.error('Error marking park as visited:', error);
     }
   };
 
@@ -110,6 +137,7 @@ export default function Home() {
                   zoom={4}
                   className="h-full w-full"
                   parks={parks}
+                  onMarkVisited={handleMarkVisited}
                 />
                 
                 {/* Legend - positioned over the map */}

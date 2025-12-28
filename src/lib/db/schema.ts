@@ -1,8 +1,7 @@
 import { pgTable, text, timestamp, varchar, integer, serial, jsonb, boolean } from 'drizzle-orm/pg-core';
 
 export const parks = pgTable('parks', {
-  id: serial('id').primaryKey(),
-  park_code: varchar('park_code', { length: 10 }).notNull().unique(),
+  park_code: varchar('park_code', { length: 10 }).notNull().unique().primaryKey(),
   name: varchar('name', { length: 255 }).notNull(),
   states: varchar('states', { length: 100 }).notNull(),
   description: text('description'),
@@ -14,7 +13,7 @@ export const parks = pgTable('parks', {
 export const visits = pgTable('visits', {
   id: serial('id').primaryKey(),
   clerk_user_id: varchar('clerk_user_id', { length: 255 }).notNull(),
-  park_code: varchar('park_code', { length: 10 }).notNull().references(() => parks.id),
+  park_code: varchar('park_code', { length: 10 }).notNull().references(() => parks.park_code),
   visited_date: timestamp('visited_date').notNull(),
   rating: integer('rating'),
   notes: text('notes'),
