@@ -46,7 +46,7 @@ export default function NavBar() {
     }
 
     return (
-        <nav className="bg-gray-50 border-b border-gray-200 sticky top-0 z-50">
+        <nav className="bg-gray-50 border-b border-gray-200 sticky top-0 z-[1000]">
             <div className="max-w-full px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
 
@@ -91,7 +91,7 @@ export default function NavBar() {
                             
                             {/* Account Dropdown */}
                             {accountDropdownOpen && (
-                                <div className="dropdown-enter absolute right-0 top-full mt-2 w-80 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                                <div className="dropdown-enter absolute right-0 top-full mt-2 w-80 bg-white border border-gray-200 rounded-lg shadow-lg">
                                     <div className="p-6 space-y-4">
                                         <div>
                                             <h3 className="text-lg font-semibold text-gray-900 mb-4">Account Information</h3>

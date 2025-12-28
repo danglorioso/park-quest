@@ -106,3 +106,8 @@ body {
 .dropdown-enter {
   animation: fadeIn 0.2s ease-out, slideDown 0.2s ease-out;
 }
+
+/* Keep Leaflet map behind other elements */
+.leaflet-container {
+  z-index: -1;
+}

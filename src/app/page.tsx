@@ -97,7 +97,7 @@ export default function Home() {
           </div>
 
           {/* Right Map */}
-          <div className="flex-1 relative overflow-hidden">
+          <div className="flex-1 relative overflow-hidden z-0">
             {isLoadingParks ? (
               <div className="flex items-center justify-center h-full">
                 <div className="text-lg text-gray-600">Loading parks...</div>
@@ -113,7 +113,7 @@ export default function Home() {
                 />
                 
                 {/* Legend - positioned over the map */}
-                <div className="absolute bottom-4 left-4 z-[1000]">
+                <div className="absolute bottom-4 left-4 z-[100]">
                   <Legend />
                 </div>
               </>
