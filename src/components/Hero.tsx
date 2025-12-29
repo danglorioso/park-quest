@@ -14,32 +14,32 @@ export default function Hero() {
                 {/* Left Side */}
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <div>
-                        {/* <div className="inline-block bg-green-500 bg-opacity-30 rounded-full px-4 py-2 mb-6">
-                            <span className="text-sm font-medium">🏆 Join 50,000+ Park Explorers</span>
+                        {/* <div className="inline-block bg-green-900 bg-opacity-30 rounded-full px-4 py-2 mb-6">
+                            <span className="text-sm font-medium"> Turn your bucket list into reality.</span>
                         </div> */}
 
                         {/* Hero Title */}
-                        <h1 className="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                            Your National Park Adventure Starts Here
+                        <h1 className="text-5xl font-bold mb-6 leading-tight">
+                            Your Next National Park Adventure Starts Here
                         </h1>
 
                         {/* Hero Subtitle */}
                         <p className="text-xl mb-8 text-green-50">
-                            Track your visits, earn badges, share experiences, and discover all 63 U.S. National Parks. Turn your bucket list into reality.
+                            Track your visits, earn badges, and your share experiences while discovering all 63 U.S. National Parks.
                         </p>
 
                         {/* Buttons */}
                         <div className="flex flex-col sm:flex-row gap-4">
-                            <button className="bg-white text-green-700 px-8 py-4 rounded-lg font-bold text-lg hover:bg-green-100 transition shadow-lg" onClick={() => setShowSignUpModal(true)}>
+                            <button className="bg-white text-green-700 px-8 py-4 rounded-lg font-bold text-md hover:bg-green-100 transition shadow-lg" onClick={() => setShowSignUpModal(true)}>
                                 Start Tracking
                             </button>
-                            <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-green-100 hover:bg-opacity-10 hover:text-green-700 transition" onClick={() => window.location.href = '#map'}>
+                            {/* <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-md hover:bg-green-100 hover:bg-opacity-10 hover:text-green-700 transition" onClick={() => window.location.href = '#map'}>
                                 Explore Map
-                            </button>
+                            </button> */}
                         </div>
 
                         {/* Perks */}
-                        <div className="mt-8 flex items-center space-x-6 text-sm">
+                        {/* <div className="mt-8 flex items-center space-x-6 text-sm">
                             <div className="flex items-center space-x-2">
                                 <Star className="w-5 h-5 text-white" />
                                 <span>No credit card required</span>
@@ -48,7 +48,7 @@ export default function Hero() {
                                 <Check className="w-5 h-5 text-white" />
                                 <span>Free-to-use</span>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
 
                     {/* Right Side */}
@@ -70,7 +70,7 @@ export default function Hero() {
                                 <div className="flex items-center space-x-3 bg-gray-50 p-3 rounded-lg">
                                     <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold">🌋</div>
                                     <div className="flex-1">
-                                        <div className="font-medium text-gray-900">Yellowstone</div>
+                                        <div className="font-medium text-gray-900">Haleakalā</div>
                                         <div className="text-sm text-gray-500">Visited August {new Date().getFullYear() - 1}</div>
                                     </div>
                                     <Check className="w-6 h-6 text-white bg-green-600 rounded-full p-1" strokeWidth={4} />

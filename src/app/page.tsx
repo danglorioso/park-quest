@@ -4,8 +4,8 @@ import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import MapHomePage from "@/components/MapHomePage";
 import Features from "@/components/Features";
+import About from "@/components/About";
 import CTA from "@/components/CTA";
 import Nav from "@/components/NavBar";
 import ProgressCard from "@/components/ProgressCard";
@@ -63,8 +63,8 @@ export default function Home() {
       setTotalParksCount(parksData.length);
       
       // Get visited park codes and bucket list park codes
-      let visitedParkCodes: Set<string> = new Set();
-      let bucketListParkCodes: Set<string> = new Set();
+      const visitedParkCodes: Set<string> = new Set();
+      const bucketListParkCodes: Set<string> = new Set();
       if (visitsResponse.ok) {
         const visitsData: Array<{ park_code: string; is_bucket_list: boolean; visited_date: string | null }> = await visitsResponse.json();
         visitsData.forEach(visit => {
@@ -219,7 +219,7 @@ export default function Home() {
   if (!isLoaded) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg text-gray-600">Loading...</div>
+        {/* <div className="text-lg text-gray-600">Loading...</div> */}
       </div>
     );
   }
@@ -288,7 +288,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       <Header />
       <Hero />
-      <MapHomePage />
+      <About />
       <Features />
       <CTA />
     </div>
