@@ -28,6 +28,7 @@ interface ParkForMap {
   position: [number, number];
   status: 'visited' | 'notVisited' | 'bucketList';
   description?: string;
+  visitedDate?: string | null;
 }
 
 export default function Home() {
@@ -62,9 +63,10 @@ export default function Home() {
       // Set total parks count (all parks, not just those with coordinates)
       setTotalParksCount(parksData.length);
       
-      // Get visited park codes and bucket list park codes
+      // Get visited park codes, bucket list park codes, and visit dates
       const visitedParkCodes: Set<string> = new Set();
       const bucketListParkCodes: Set<string> = new Set();
+      const visitDatesMap: Record<string, string> = {};
       if (visitsResponse.ok) {
         const visitsData: Array<{ park_code: string; is_bucket_list: boolean; visited_date: string | null }> = await visitsResponse.json();
         visitsData.forEach(visit => {
@@ -72,6 +74,7 @@ export default function Home() {
             bucketListParkCodes.add(visit.park_code);
           } else if (visit.visited_date) {
             visitedParkCodes.add(visit.park_code);
+            visitDatesMap[visit.park_code] = visit.visited_date;
           }
         });
         // Count only visited parks (not bucket list)
@@ -99,6 +102,7 @@ export default function Home() {
             ] as [number, number],
             status,
             description: park.description || undefined,
+            visitedDate: visitDatesMap[park.park_code] || null,
           };
         });
       
@@ -128,7 +132,7 @@ export default function Home() {
       setParks(prevParks =>
         prevParks.map(park =>
           park.park_code === parkCode
-            ? { ...park, status: 'visited' as const }
+            ? { ...park, status: 'visited' as const, visitedDate: new Date().toISOString() }
             : park
         )
       );
@@ -158,7 +162,7 @@ export default function Home() {
       setParks(prevParks =>
         prevParks.map(park =>
           park.park_code === parkCode
-            ? { ...park, status: 'bucketList' as const }
+            ? { ...park, status: 'bucketList' as const, visitedDate: null }
             : park
         )
       );
@@ -181,7 +185,7 @@ export default function Home() {
       setParks(prevParks =>
         prevParks.map(park =>
           park.park_code === parkCode
-            ? { ...park, status: 'notVisited' as const }
+            ? { ...park, status: 'notVisited' as const, visitedDate: null }
             : park
         )
       );
@@ -204,7 +208,7 @@ export default function Home() {
       setParks(prevParks =>
         prevParks.map(park =>
           park.park_code === parkCode
-            ? { ...park, status: 'notVisited' as const }
+            ? { ...park, status: 'notVisited' as const, visitedDate: null }
             : park
         )
       );

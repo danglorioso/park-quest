@@ -19,16 +19,18 @@ interface MapProps {
   onMarkNotVisited?: (parkCode: string) => void;
 }
 
-export default function Map({ 
-  center, 
-  zoom, 
-  className, 
-  parks, 
-  onMarkVisited, 
-  onAddToBucketList, 
-  onRemoveFromBucketList, 
-  onMarkNotVisited, 
-}: MapProps) {
+export default function Map(props: MapProps = {}) {
+  const { 
+    center, 
+    zoom, 
+    className, 
+    parks, 
+    onMarkVisited, 
+    onAddToBucketList, 
+    onRemoveFromBucketList, 
+    onMarkNotVisited, 
+  } = props;
+  
   return <LeafletMap 
     center={center} 
     zoom={zoom} 

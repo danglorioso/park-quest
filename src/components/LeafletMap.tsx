@@ -12,6 +12,7 @@ export interface Park {
   position: [number, number];
   status: 'visited' | 'notVisited' | 'bucketList';
   description?: string;
+  visitedDate?: string | null;
 }
 
 interface LeafletMapProps {
@@ -86,8 +87,8 @@ export default function LeafletMap({
         zoom={zoom} 
         className={className}
         maxBounds={[
-            [24.396308, -125.0], // Southwest corner
-            [49.384358, -66.93457] // Northeast corner
+            [-16.0, -180.0], // Southwest corner
+            [75.0, -42.0] // Northeast corner
         ]}
         maxBoundsViscosity={1.0}
         minZoom={3}
@@ -105,8 +106,24 @@ export default function LeafletMap({
           <Popup>
             <div className="min-w-[200px]">
               <div className="font-semibold">{park.name}</div>
-              {park.description && (
-                <div className="text-sm text-gray-600 mt-1 mb-3">{park.description}</div>
+              {onMarkVisited ? (
+                // Signed-in view: show visit status
+                park.status === 'visited' && park.visitedDate ? (
+                  <div className="text-sm text-gray-600 mt-1 mb-3">
+                    Visited on {new Date(park.visitedDate).toLocaleDateString('en-US', { 
+                      year: 'numeric', 
+                      month: 'long', 
+                      day: 'numeric' 
+                    })}
+                  </div>
+                ) : (
+                  <div className="text-sm text-gray-600 mt-1 mb-3">Not yet visited</div>
+                )
+              ) : (
+                // Not signed-in view: show description
+                park.description && (
+                  <div className="text-sm text-gray-600 mt-1 mb-3">{park.description}</div>
+                )
               )}
 
               <div className="flex flex-col gap-2 mt-2">
