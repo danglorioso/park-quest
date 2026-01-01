@@ -1,7 +1,7 @@
 export default function RecentBadges() {
     return (
         <div className="mb-6">
-            <h3 className="text-sm font-semibold text-gray-900 mb-3">Recent Badges</h3>
+            <h3 className="text-sm font-semibold text-gray-900 mb-3">Recent Badges (Coming Soon)</h3>
             <div className="space-y-3">
                 <div className="flex items-center space-x-3 bg-yellow-50 rounded-lg p-3">
                     <span className="text-3xl">🏆</span>

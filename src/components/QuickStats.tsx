@@ -8,7 +8,7 @@ interface QuickStatsProps {
 export default function QuickStats({ statesCount, badgesCount, photosCount, postsCount }: QuickStatsProps) {
     return (
         <div className="mb-6">
-            <h3 className="text-sm font-semibold text-gray-900 mb-3">Quick Stats</h3>
+            <h3 className="text-sm font-semibold text-gray-900 mb-3">Quick Stats (Coming Soon)</h3>
             <div className="grid grid-cols-2 gap-3">
                 <div className="bg-blue-50 rounded-lg p-3">
                     <div className="text-2xl font-bold text-blue-600">{statesCount}</div>

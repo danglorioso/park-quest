@@ -266,9 +266,9 @@ export default function Home() {
         />
 
         {/* Body */}
-        <div className="flex flex-1 flex-row min-h-0 overflow-hidden">
+        <div className="flex flex-1 flex-col md:flex-row min-h-0 overflow-hidden">
           {/* Left Sidebar */}
-          <div className="w-80 bg-gray-50 border-r border-gray-200 overflow-y-auto p-6">
+          <div className="w-full md:w-80 bg-gray-50 border-r-0 md:border-r border-gray-200 border-b md:border-b-0 overflow-y-auto p-6 max-h-[40vh] md:max-h-none">
             <ProgressCard 
               visitedCount={visitedParksCount}
               totalCount={totalParksCount}
@@ -283,7 +283,7 @@ export default function Home() {
           </div>
 
           {/* Right Map */}
-          <div className="flex-1 relative overflow-hidden z-0">
+          <div className="flex-1 relative overflow-hidden z-0 min-h-[400px] md:min-h-0">
             {isLoadingParks ? (
               <div className="flex items-center justify-center h-full">
                 <div className="text-lg text-gray-600">Loading parks...</div>
