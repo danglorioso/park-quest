@@ -81,12 +81,14 @@ export default function SignUpModal({ open, onOpenChange, switchToSignIn }: Sign
   };
 
   const handleOAuth = async (provider: "oauth_google" | "oauth_apple") => {
-    if (!isLoaded || !signUp) return;
+    if (!isLoaded || !signUp) {
+      return;
+    }
     
     try {
       await signUp.authenticateWithRedirect({
         strategy: provider,
-        redirectUrl: "/",
+        redirectUrl: "/sso-callback",
         redirectUrlComplete: "/",
       });
     } catch (err: unknown) {
@@ -170,6 +172,8 @@ export default function SignUpModal({ open, onOpenChange, switchToSignIn }: Sign
         <div className="space-y-4">
           {/* OAuth Buttons */}
           <div className="grid grid-cols-2 gap-3">
+
+            {/* Google Button */}
             <Button
               type="button"
               variant="outline"
@@ -197,6 +201,8 @@ export default function SignUpModal({ open, onOpenChange, switchToSignIn }: Sign
               </svg>
               Google
             </Button>
+
+            {/* Apple Button */}
             <Button
               type="button"
               variant="outline"
