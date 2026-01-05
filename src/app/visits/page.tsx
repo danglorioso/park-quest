@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
 import NavBar from "@/components/NavBar";
 import ProgressCard from "@/components/ProgressCard";
 import VisitDateDialog from "@/components/VisitDateDialog";
@@ -27,7 +26,7 @@ interface ParkWithStatus {
 }
 
 export default function VisitsPage() {
-  const { user, isSignedIn, isLoaded } = useUser();
+  const { user, isSignedIn } = useUser();
   const [parks, setParks] = useState<ParkWithStatus[]>([]);
   const [totalParksCount, setTotalParksCount] = useState(0);
   const [visitedParksCount, setVisitedParksCount] = useState(0);
@@ -312,21 +311,21 @@ export default function VisitsPage() {
   const title = user?.firstName ? `${user.firstName}'s Visits` : 'My Visits';
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col">
       {/* Navigation Bar */}
       <NavBar
         visitedParksCount={visitedParksCount}
         totalParksCount={totalParksCount}
       />
 
-      {/* Body */}
-      <div className="flex-1 overflow-y-auto bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Title */}
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">{title}</h1>
+      {/* Header Section */}
+      <div className="min-w-screen bg-gradient-to-br from-emerald-700 to-emerald-500">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-">
+        {/* Title */}
+          <h1 className="text-3xl font-bold text-white mb-4">{title}</h1>
 
           {/* Progress Card and Counters */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {/* Progress Card */}
             <div className="md:col-span-2">
               <ProgressCard
@@ -336,25 +335,44 @@ export default function VisitsPage() {
             </div>
 
             {/* Counters */}
-            <div className="flex flex-row space-x-4">
+            <div className="flex flex-row gap-4 md:col-span-2">
+              {/* Parks Visited Counter */}
               <Card className="flex-1 bg-green-50 border-green-200 border-2">
                 <CardHeader className="">
                   <CardTitle className="text-base font-semibold text-center">Parks Visited</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-5xl font-bold text-center text-green-600">{visitedParksCount}</div>
+                  <div className="text-6xl font-bold text-center text-green-600">{visitedParksCount}</div>
                 </CardContent>
               </Card>
+
+              {/* Bucket List Counter */}
               <Card className="flex-1 bg-amber-50 border-amber-200 border-2">
                 <CardHeader className="">
                   <CardTitle className="text-base font-semibold text-center">On Bucket List</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-5xl font-bold text-center text-amber-500">{bucketListCount}</div>
+                  <div className="text-6xl font-bold text-center text-amber-500">{bucketListCount}</div>
+                </CardContent>
+              </Card>
+
+              {/* Parks Unvisited Counter */}
+              <Card className="flex-1 bg-amber-50 border-amber-200 border-2">
+                <CardHeader className="">
+                  <CardTitle className="text-base font-semibold text-center">Parks Unvisited</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-6xl font-bold text-center text-amber-500">{totalParksCount - visitedParksCount}</div>
                 </CardContent>
               </Card>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Body */}
+      <div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-">
 
           {/* Loading State */}
           {isLoadingParks ? (
