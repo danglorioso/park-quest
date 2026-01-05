@@ -39,7 +39,7 @@ export default function SignInModal({ open, onOpenChange, switchToSignUp }: Sign
       if (result.status === "complete") {
         await setActive({ session: result.createdSessionId });
         onOpenChange(false);
-        router.push("/");
+        router.push("/map");
         router.refresh();
       } else {
         setError("Sign in incomplete. Please try again.");
@@ -59,7 +59,7 @@ export default function SignInModal({ open, onOpenChange, switchToSignUp }: Sign
       await signIn.authenticateWithRedirect({
         strategy: provider,
         redirectUrl: "/",
-        redirectUrlComplete: "/",
+        redirectUrlComplete: "/map",
       });
     } catch (err: unknown) {
       const error = err as { errors?: Array<{ message?: string }> };

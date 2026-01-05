@@ -7,7 +7,7 @@ export default function Hero() {
     return (
         <div
             className="text-white"
-            style={{ background: "linear-gradient(135deg, rgba(5, 107, 78, 1), #047857 50%, #10b981 100%)" }}
+            style={{ background: "linear-gradient(170deg, rgba(5, 107, 78, 1), #047857 50%, #10b981 100%)" }}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
 

@@ -37,7 +37,7 @@ export default function Header() {
                             Sign In
                         </Button>
                         <Button 
-                            className="bg-green-600 hover:bg-green-700 text-white hover:cursor-pointer"
+                            className="bg-green-600 hover:bg-green-700 text-white hover:cursor-pointer hover:shadow-lg"
                             onClick={() => setSignUpOpen(true)}
                         >
                             Get Started

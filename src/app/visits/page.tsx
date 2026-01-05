@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import NavBar from "@/components/NavBar";
 import ProgressCard from "@/components/ProgressCard";
 import VisitDateDialog from "@/components/VisitDateDialog";
@@ -309,22 +310,6 @@ export default function VisitsPage() {
 
   // Get title
   const title = user?.firstName ? `${user.firstName}'s Visits` : 'My Visits';
-
-  if (!isLoaded) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        {/* Loading state */}
-      </div>
-    );
-  }
-
-  if (!isSignedIn) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg text-gray-600">Please sign in to view your visits</div>
-      </div>
-    );
-  }
 
   return (
     <div className="flex flex-col h-screen">

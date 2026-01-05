@@ -68,7 +68,7 @@ export default function NavBar({ visitedParksCount, totalParksCount }: NavBarPro
                             <Link 
                                 href="/map" 
                                 className={`px-4 py-2 rounded-lg font-medium transition ${
-                                    pathname === '/' || pathname === '/map'
+                                    pathname === '/map'
                                         ? 'text-green-600 bg-green-50'
                                         : 'text-gray-600 hover:bg-gray-50'
                                 }`}
