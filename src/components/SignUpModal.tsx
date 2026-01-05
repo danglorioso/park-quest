@@ -67,7 +67,7 @@ export default function SignUpModal({ open, onOpenChange, switchToSignIn }: Sign
       if (completeSignUp.status === "complete") {
         await setActive({ session: completeSignUp.createdSessionId });
         onOpenChange(false);
-        router.push("/");
+        router.push("/map");
         router.refresh();
       } else {
         setError("Verification incomplete. Please try again.");
@@ -281,6 +281,12 @@ export default function SignUpModal({ open, onOpenChange, switchToSignIn }: Sign
                 className="w-full"
               />
             </div>
+            
+            {/* ReCAPTCHA */}
+            <div className="flex justify-center">
+              <div id="clerk-captcha"></div>
+            </div>
+
             {error && (
               <div className="text-sm text-red-600 bg-red-50 p-3 rounded-md">
                 {error}
