@@ -8,6 +8,7 @@ import VisitDateDialog from "@/components/VisitDateDialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { X } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton"
 
 interface ParkFromDB {
   park_code: string;
@@ -38,6 +39,7 @@ export default function VisitsPage() {
   const [isBatchMarkingVisited, setIsBatchMarkingVisited] = useState(false);
   const [isBatchAddingToBucketList, setIsBatchAddingToBucketList] = useState(false);
   const [batchParkCodes, setBatchParkCodes] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (isSignedIn) {
@@ -48,7 +50,8 @@ export default function VisitsPage() {
   const fetchParksAndVisits = async () => {
     try {
       setIsLoadingParks(true);
-
+      setLoading(true);
+      
       // Fetch parks and visits in parallel
       const [parksResponse, visitsResponse] = await Promise.all([
         fetch('/api/parks'),
@@ -104,6 +107,7 @@ export default function VisitsPage() {
       });
 
       setParks(transformedParks);
+      setLoading(false);
     } catch (error) {
       console.error('Error fetching parks:', error);
     } finally {
@@ -338,31 +342,58 @@ export default function VisitsPage() {
             <div className="flex flex-row gap-4 md:col-span-2">
               {/* Parks Visited Counter */}
               <Card className="flex-1 bg-green-50 border-green-200 border-2">
-                <CardHeader className="">
-                  <CardTitle className="text-base font-semibold text-center">Parks Visited</CardTitle>
+                <CardHeader>
+                  <CardTitle className="text-base font-semibold text-center">
+                    Parks Visited
+                  </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-6xl font-bold text-center text-green-600">{visitedParksCount}</div>
+
+                <CardContent className="flex justify-center">
+                  {loading ? (
+                    <Skeleton className="bg-green-200/40 h-[3.75rem] w-24 rounded-md" />
+                  ) : (
+                    <div className="text-6xl font-bold text-center text-green-600">
+                      {visitedParksCount}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
 
               {/* Bucket List Counter */}
               <Card className="flex-1 bg-amber-50 border-amber-200 border-2">
-                <CardHeader className="">
-                  <CardTitle className="text-base font-semibold text-center">On Bucket List</CardTitle>
+                <CardHeader>
+                  <CardTitle className="text-base font-semibold text-center">
+                    On Bucket List
+                  </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-6xl font-bold text-center text-amber-500">{bucketListCount}</div>
+
+                <CardContent className="flex justify-center">
+                  {loading ? (
+                    <Skeleton className="bg-amber-200/40 h-[3.75rem] w-24 rounded-md" />
+                  ) : (
+                    <div className="text-6xl font-bold text-center text-amber-500">
+                      {bucketListCount}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
 
               {/* Parks Unvisited Counter */}
               <Card className="flex-1 bg-red-50 border-red-200 border-2">
-                <CardHeader className="">
-                  <CardTitle className="text-base font-semibold text-center">Parks Unvisited</CardTitle>
+                <CardHeader>
+                  <CardTitle className="text-base font-semibold text-center">
+                    Parks Unvisited
+                  </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="text-6xl font-bold text-center text-red-400">{totalParksCount - visitedParksCount}</div>
+
+                <CardContent className="flex justify-center">
+                  {loading ? (
+                    <Skeleton className="bg-red-200/40 h-[3.75rem] w-24 rounded-md" />
+                  ) : (
+                    <div className="text-6xl font-bold text-center text-red-400">
+                      {totalParksCount - visitedParksCount}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </div>
