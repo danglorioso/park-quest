@@ -357,12 +357,12 @@ export default function VisitsPage() {
               </Card>
 
               {/* Parks Unvisited Counter */}
-              <Card className="flex-1 bg-amber-50 border-amber-200 border-2">
+              <Card className="flex-1 bg-red-50 border-red-200 border-2">
                 <CardHeader className="">
                   <CardTitle className="text-base font-semibold text-center">Parks Unvisited</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-6xl font-bold text-center text-amber-500">{totalParksCount - visitedParksCount}</div>
+                  <div className="text-6xl font-bold text-center text-red-400">{totalParksCount - visitedParksCount}</div>
                 </CardContent>
               </Card>
             </div>
