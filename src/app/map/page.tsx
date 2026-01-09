@@ -269,6 +269,7 @@ export default function Home() {
             <ProgressCard 
               visitedCount={visitedParksCount}
               totalCount={totalParksCount}
+              loading={isLoadingParks}
             />
             <QuickStats 
               statesCount={0}

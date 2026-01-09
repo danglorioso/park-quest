@@ -335,6 +335,7 @@ export default function VisitsPage() {
               <ProgressCard
                 visitedCount={visitedParksCount}
                 totalCount={totalParksCount}
+                loading={loading}
               />
             </div>
 
