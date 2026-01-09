@@ -38,7 +38,7 @@ export default function ProgressCard({
       {/* Percentage */}
       <div className="mb-4">
         {loading ? (
-          <Skeleton className="bg-green-200/40 h-4 w-28 rounded-md" />
+          <Skeleton className="bg-green-200/40 h-5 w-28 rounded-md" />
         ) : (
           <div className="text-emerald-100 text-sm">
             {percentage}% Complete
