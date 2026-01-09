@@ -69,8 +69,8 @@ export default function NavBar({ visitedParksCount, totalParksCount }: NavBarPro
                                 href="/map" 
                                 className={`px-4 py-2 rounded-lg font-medium transition ${
                                     pathname === '/map'
-                                        ? 'text-green-600 bg-green-50'
-                                        : 'text-gray-600 hover:bg-gray-50'
+                                        ? 'font-semibold text-green-600 bg-green-50'
+                                        : 'text-gray-600 hover:bg-gray-100'
                                 }`}
                             >
                                 Map
@@ -79,8 +79,8 @@ export default function NavBar({ visitedParksCount, totalParksCount }: NavBarPro
                                 href="/visits" 
                                 className={`px-4 py-2 rounded-lg font-medium transition ${
                                     pathname === '/visits'
-                                        ? 'text-green-600 bg-green-50'
-                                        : 'text-gray-600 hover:bg-gray-50'
+                                        ? 'font-semibold text-green-600 bg-green-50'
+                                        : 'text-gray-600 hover:bg-gray-100'
                                 }`}
                             >
                                 My Visits
@@ -89,8 +89,8 @@ export default function NavBar({ visitedParksCount, totalParksCount }: NavBarPro
                                 href="/badges" 
                                 className={`px-4 py-2 rounded-lg font-medium transition ${
                                     pathname === '/badges'
-                                        ? 'text-green-600 bg-green-50'
-                                        : 'text-gray-600 hover:bg-gray-50'
+                                        ? 'font-semibold text-green-600 bg-green-50'
+                                        : 'text-gray-600 hover:bg-gray-100'
                                 }`}
                             >
                                 Badges
@@ -99,8 +99,8 @@ export default function NavBar({ visitedParksCount, totalParksCount }: NavBarPro
                                 href="/community" 
                                 className={`px-4 py-2 rounded-lg font-medium transition ${
                                     pathname === '/community'
-                                        ? 'text-green-600 bg-green-50'
-                                        : 'text-gray-600 hover:bg-gray-50'
+                                        ? 'font-semibold text-green-600 bg-green-50'
+                                        : 'text-gray-600 hover:bg-gray-100'
                                 }`}
                             >
                                 Community
@@ -111,7 +111,7 @@ export default function NavBar({ visitedParksCount, totalParksCount }: NavBarPro
                     <div className="flex items-center space-x-4">
 
                         {/* Notification Bell */}
-                        <button className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                        <button className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition">
                             <Bell className="w-6 h-6" />
                         </button>
 
