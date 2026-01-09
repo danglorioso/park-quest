@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { useUser, useClerk } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
+import { Skeleton } from "./ui/skeleton";
 
 interface NavBarProps {
     visitedParksCount: number;
@@ -118,14 +119,14 @@ export default function NavBar({ visitedParksCount, totalParksCount }: NavBarPro
                                 className="flex items-center space-x-3 hover:bg-gray-100 rounded-lg px-2 py-1 transition"
                             >
                                 <div className="text-right hidden sm:block">
-                                    {isLoaded ? (<div className="text-sm font-medium text-gray-900">{fullName}</div>) : (<div className="text-sm font-medium text-white">.</div>)}
-                                    {isLoaded ? (<div className="text-xs text-gray-500">{visitedParksCount}/{totalParksCount} Parks</div>) : (<div className="text-xs text-gray-500">0/{totalParksCount} Parks</div>)}
+                                    {isLoaded ? (<div className="text-sm font-medium text-gray-900">{fullName}</div>) : (<Skeleton className="h-4 w-20 rounded-md bg-gray-300 mb-2" />)}
+                                    {isLoaded ? (<div className="text-xs text-gray-500">{visitedParksCount}/{totalParksCount} Parks</div>) : (<Skeleton className="h-2 w-20 rounded-md bg-gray-300" />)}
                                 </div>
                                 {isLoaded ? (<img 
                                     src={profileImageUrl} 
                                     alt={fullName}
                                     className="w-10 h-10 rounded-full border-2 border-green-500 object-cover" 
-                                />) : (<div className="w-10 h-10 rounded-full bg-gray-300 border-green-500 border-2"></div>)}
+                                />) : (<Skeleton className="w-10 h-10 rounded-full bg-gray-300 border-green-500 border-2" />)}
                             </button>
                             
                             {/* Account Dropdown */}
