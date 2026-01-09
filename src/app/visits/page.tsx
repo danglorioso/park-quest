@@ -408,8 +408,8 @@ export default function VisitsPage() {
 
           {/* Loading State */}
           {isLoadingParks ? (
-            <div className="flex items-center justify-center py-12">
-              <div className="text-lg text-gray-600">Loading visits...</div>
+            <div className="flex items-center justify-center">
+              <Skeleton className="bg-gray-200/40 h-screen w-full rounded-md" />
             </div>
           ) : (
             <div className="space-y-8">
