@@ -48,10 +48,6 @@ export default function NavBar({ visitedParksCount, totalParksCount }: NavBarPro
         setAccountDropdownOpen(false);
     };
 
-    if (!isLoaded || !user) {
-        return null;
-    }
-
     return (
         <nav className="bg-gray-50 border-b border-gray-200 sticky top-0 z-[1000]">
             <div className="max-w-full px-4 sm:px-6 lg:px-8">
@@ -122,14 +118,14 @@ export default function NavBar({ visitedParksCount, totalParksCount }: NavBarPro
                                 className="flex items-center space-x-3 hover:bg-gray-100 rounded-lg px-2 py-1 transition"
                             >
                                 <div className="text-right hidden sm:block">
-                                    <div className="text-sm font-medium text-gray-900">{fullName}</div>
-                                    <div className="text-xs text-gray-500">{visitedParksCount}/{totalParksCount} Parks</div>
+                                    {isLoaded ? (<div className="text-sm font-medium text-gray-900">{fullName}</div>) : (<div className="text-sm font-medium text-white">.</div>)}
+                                    {isLoaded ? (<div className="text-xs text-gray-500">{visitedParksCount}/{totalParksCount} Parks</div>) : (<div className="text-xs text-gray-500">0/{totalParksCount} Parks</div>)}
                                 </div>
-                                <img 
+                                {isLoaded ? (<img 
                                     src={profileImageUrl} 
                                     alt={fullName}
                                     className="w-10 h-10 rounded-full border-2 border-green-500 object-cover" 
-                                />
+                                />) : (<div className="w-10 h-10 rounded-full bg-gray-300 border-green-500 border-2"></div>)}
                             </button>
                             
                             {/* Account Dropdown */}
