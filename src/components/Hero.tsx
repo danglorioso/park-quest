@@ -25,7 +25,7 @@ export default function Hero() {
 
                         {/* Hero Subtitle */}
                         <p className="text-xl mb-8 text-green-50">
-                            Track your visits, earn badges, and your share experiences while discovering all 63 U.S. National Parks.
+                            Track your visits, earn badges, and share your experiences while discovering all 63 U.S. National Parks.
                         </p>
 
                         {/* Buttons */}
