@@ -129,7 +129,7 @@ export default function NavBar({ visitedParksCount, totalParksCount }: NavBarPro
                             </button>
                             
                             {/* Account Dropdown */}
-                            {accountDropdownOpen && (
+                            {accountDropdownOpen && user &&(
                                 <div className="dropdown-enter absolute right-0 top-full mt-2 w-80 bg-white border border-gray-200 rounded-lg shadow-lg">
                                     <div className="p-6 space-y-4">
                                         <div>
